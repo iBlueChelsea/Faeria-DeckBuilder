@@ -1,0 +1,9 @@
+.selectable {
+    cursor: pointer;
+}
+
+.not-selectable {
+    cursor: not-allowed;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
