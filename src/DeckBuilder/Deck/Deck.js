@@ -17,7 +17,7 @@ const Deck = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost/faeria/Faeria/utils/getCards.php")
+      .get("https://cheekia.loca.lt/faeria/Faeria/utils/getCards.php")
       .then((res) => {
         res.data.forEach((card) => {
           const array = cardlist.find((arr) => arr.includes(parseInt(card.id)));
@@ -32,6 +32,9 @@ const Deck = (props) => {
           }
         });
         setCardsState(res.data);
+      })
+      .catch((error) => {
+        console.log("Network Error", error.message);
       });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -96,9 +99,12 @@ const Deck = (props) => {
     data.append("user", document.getElementById("user").value);
     data.append("deck", JSON.stringify(deckState));
     axios
-      .post("http://localhost/faeria/Faeria/utils/saveDeck.php", data)
+      .post("https://cheekia.loca.lt/faeria/Faeria/utils/saveDeck.php", data)
       .then(() => {
         props.click();
+      })
+      .catch((error) => {
+        console.log("Network Error", error.message);
       });
   };
 
@@ -133,7 +139,7 @@ const Deck = (props) => {
     cardsState.length > 0
       ? cardsState.find((card) => card.id == deckState.cover)
         ? cardsState.find((card) => card.id == deckState.cover).name
-        : 'No cover'
+        : "No cover"
       : null;
   const options = cover
     ? cardlist.map((item) => (
@@ -190,8 +196,7 @@ const Deck = (props) => {
           </InputGroup.Prepend>
           <FormControl
             onChange={setName}
-            plaintext 
-            readOnly 
+            readOnly
             defaultValue={cover}
             aria-label={cover}
             aria-describedby="basic-addon2"
