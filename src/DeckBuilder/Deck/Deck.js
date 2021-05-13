@@ -203,7 +203,7 @@ const Deck = (props) => {
           />
           <DropdownButton
             as={InputGroup.Append}
-            variant="outline-secondary"
+            variant="secondary"
             title="Select"
             id="input-group-dropdown-2"
           >
