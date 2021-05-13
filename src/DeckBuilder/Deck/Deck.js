@@ -17,7 +17,7 @@ const Deck = (props) => {
 
   useEffect(() => {
     axios
-      .get("https://cheekia.loca.lt/faeria/Faeria/utils/getCards.php")
+      .get("/faeria/Faeria/utils/getCards.php")
       .then((res) => {
         res.data.forEach((card) => {
           const array = cardlist.find((arr) => arr.includes(parseInt(card.id)));
@@ -99,7 +99,7 @@ const Deck = (props) => {
     data.append("user", document.getElementById("user").value);
     data.append("deck", JSON.stringify(deckState));
     axios
-      .post("https://cheekia.loca.lt/faeria/Faeria/utils/saveDeck.php", data)
+      .post("/faeria/Faeria/utils/saveDeck.php", data)
       .then(() => {
         props.click();
       })

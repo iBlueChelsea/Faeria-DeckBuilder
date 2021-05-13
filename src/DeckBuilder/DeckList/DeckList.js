@@ -9,7 +9,7 @@ const DeckList = (props) => {
     const data = new FormData();
     data.append("user", document.getElementById("user").value);
     axios
-      .post("https://cheekia.loca.lt/faeria/Faeria/utils/getDecks.php", data)
+      .post("/faeria/Faeria/utils/getDecks.php", data)
       .then((res) => {
         setDecksState(res.data);
       })
