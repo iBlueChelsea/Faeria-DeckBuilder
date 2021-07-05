@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CardList from "./CardList/CardList";
 import Card from "./Card/Card";
+import SearchBar from "./SearchBar/SearchBar";
 import {
   Badge,
   Button,
@@ -14,6 +15,14 @@ import {
 const Deck = (props) => {
   const [cardsState, setCardsState] = useState([]);
   const [deckState, setDeckState] = useState(props.data);
+  const [landFilterState, setlandFilterState] = useState({
+    neutral: false,
+    forest: false,
+    desert: false,
+    mountain: false,
+    lake: false,
+  });
+  const [nameFilterState, setnameFilterState] = useState("");
 
   useEffect(() => {
     axios
@@ -36,7 +45,7 @@ const Deck = (props) => {
       .catch((error) => {
         console.log("Network Error", error.message);
       });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [landFilterState, nameFilterState]);
 
   useEffect(() => {
     const newCardsState = [...cardsState];
@@ -53,7 +62,7 @@ const Deck = (props) => {
       }
     });
     setCardsState(newCardsState);
-  }, [deckState]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [deckState]);
 
   const cardlist = deckState.cards.reduce((prev, curr, i, cards) => {
     curr === cards[i - 1]
@@ -151,17 +160,33 @@ const Deck = (props) => {
 
   return (
     <div style={{ display: "flex" }}>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          height: "80vh",
-          width: "70vw",
-          justifyContent: "space-evenly",
-          overflow: "scroll",
-        }}
-      >
-        {cards}
+      <div>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            height: "80vh",
+            width: "70vw",
+            justifyContent: "space-evenly",
+            overflow: "scroll",
+          }}
+        >
+          {cards}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            height: "20vh",
+            width: "70vw",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <SearchBar
+            landFilter={landFilterState}
+            nameFilter={nameFilterState}
+          />
+        </div>
       </div>
       <div
         style={{

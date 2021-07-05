@@ -7,7 +7,7 @@ const Card = (props) => {
   const click = props.data.playable ? props.click : null;
 
   return (
-    <div style={{ width: "15vw" }} id={props.data.id} onClick={click} className={className}>
+    <div style={{ width: "15vw", margin: "10px" }} id={props.data.id} onClick={click} className={className}>
       <img
         style={{ width: "15vw" }}
         id={props.data.id}
