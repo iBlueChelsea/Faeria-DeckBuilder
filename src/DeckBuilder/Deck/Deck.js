@@ -15,18 +15,25 @@ import {
 const Deck = (props) => {
   const [cardsState, setCardsState] = useState([]);
   const [deckState, setDeckState] = useState(props.data);
-  const [landFilterState, setlandFilterState] = useState({
+  const [landFilterState, setLandFilterState] = useState({
     neutral: false,
     forest: false,
     desert: false,
     mountain: false,
     lake: false,
   });
-  const [nameFilterState, setnameFilterState] = useState("");
+  const [nameFilterState, setNameFilterState] = useState("");
 
   useEffect(() => {
     axios
-      .get("/faeria/Faeria/utils/getCards.php")
+      .get("/faeria/Faeria/utils/getCards.php", {
+        params: {
+          name: nameFilterState,
+          land: Object.keys(landFilterState).find(
+            (key) => landFilterState[key]
+          ),
+        },
+      })
       .then((res) => {
         res.data.forEach((card) => {
           const array = cardlist.find((arr) => arr.includes(parseInt(card.id)));
@@ -144,6 +151,19 @@ const Deck = (props) => {
     setDeckState(newDeckState);
   };
 
+  const changeLandFilter = (event) => {
+    const newLandFilterState = { ...landFilterState };
+    newLandFilterState[event.target.id] = !newLandFilterState[event.target.id];
+    Object.keys(newLandFilterState)
+      .filter((key) => key !== event.target.id)
+      .forEach((land) => (newLandFilterState[land] = false));
+    setLandFilterState(newLandFilterState);
+  };
+
+  const changeNameFilter = (event) => {
+    setNameFilterState(event.target.value);
+  };
+
   const cover =
     cardsState.length > 0
       ? cardsState.find((card) => card.id == deckState.cover)
@@ -185,6 +205,8 @@ const Deck = (props) => {
           <SearchBar
             landFilter={landFilterState}
             nameFilter={nameFilterState}
+            changeLandFilter={changeLandFilter}
+            changeNameFilter={changeNameFilter}
           />
         </div>
       </div>

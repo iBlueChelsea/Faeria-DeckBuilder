@@ -1,0 +1,59 @@
+.neutral {
+  stroke: #baa79e;
+  fill: #baa79e86;
+  stroke-width: 3px;
+}
+
+.neutral-active {
+  stroke: white;
+  fill: #baa79e;
+  stroke-width: 3px;
+}
+
+.forest {
+  stroke: #5bb21b;
+  fill: #5ab21b83;
+  stroke-width: 3px;
+}
+
+.forest-active {
+  stroke: white;
+  fill: #5bb21b;
+  stroke-width: 3px;
+}
+
+.lake {
+  stroke: #0091e5;
+  fill: #0091e583;
+  stroke-width: 3px;
+}
+
+.lake-active {
+  stroke: white;
+  fill: #0091e5;
+  stroke-width: 3px;
+}
+
+.mountain {
+  stroke: #cf3201;
+  fill: #cf310180;
+  stroke-width: 3px;
+}
+
+.mountain-active {
+  stroke: white;
+  fill: #cf3201;
+  stroke-width: 3px;
+}
+
+.desert {
+  stroke: #e5a018;
+  fill: #e5a11881;
+  stroke-width: 3px;
+}
+
+.desert-active {
+  stroke: white;
+  fill: #e5a018;
+  stroke-width: 3px;
+}
