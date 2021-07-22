@@ -14,6 +14,7 @@ import {
 
 const Deck = (props) => {
   const [cardsState, setCardsState] = useState([]);
+  const [cardsListState, setCardsListState] = useState([]);
   const [deckState, setDeckState] = useState(props.data);
   const [landFilterState, setLandFilterState] = useState({
     neutral: false,
@@ -47,6 +48,9 @@ const Deck = (props) => {
               : (card.playable = false);
           }
         });
+        if (cardsListState.length === 0) {
+          setCardsListState(res.data);
+        }
         setCardsState(res.data);
       })
       .catch((error) => {
@@ -83,7 +87,7 @@ const Deck = (props) => {
     let count = 0;
     cards.forEach((id) => {
       count++;
-      sum += parseInt(cardsState.filter((card) => card.id == id)[0].faeria); // eslint-disable-line eqeqeq
+      sum += parseInt(cardsListState.filter((card) => card.id == id)[0].faeria); // eslint-disable-line eqeqeq
     });
     return count ? sum / count : 0;
   };
@@ -165,15 +169,15 @@ const Deck = (props) => {
   };
 
   const cover =
-    cardsState.length > 0
-      ? cardsState.find((card) => card.id == deckState.cover)
-        ? cardsState.find((card) => card.id == deckState.cover).name
+    cardsListState.length > 0
+      ? cardsListState.find((card) => card.id == deckState.cover)
+        ? cardsListState.find((card) => card.id == deckState.cover).name
         : "No cover"
       : null;
   const options = cover
     ? cardlist.map((item) => (
         <Dropdown.Item key={item[0]} id={item[0]} onClick={setCover}>
-          {cardsState.find((card) => card.id == item[0]).name}
+          {cardsListState.find((card) => card.id == item[0]).name}
         </Dropdown.Item>
       ))
     : null;
@@ -259,7 +263,7 @@ const Deck = (props) => {
         </InputGroup>
         <CardList
           cardlist={cardlist}
-          data={cardsState}
+          data={cardsListState}
           click={removeCardHandler}
         />
         {saveButton}
